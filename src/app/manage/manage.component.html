@@ -1,0 +1,153 @@
+<div class="head mt-4 mb-4">
+  <h1 style="text-align: center;">Manage</h1>
+</div>
+
+<div class="container box-display rounded mt-3">
+    <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#create">
+      Create
+    </button>
+    <form (ngSubmit)="onSearch()" #createForm="ngForm">
+      <div class="form-group">
+        <label for="search">Search</label>
+        <input id="search" type="text" class="form-control" aria-describedby="search" placeholder="Search Manage" required [(ngModel)]="searchTerm" name="search">
+      </div>
+      <button type="submit" class="btn btn-primary mt-2 w-100">Search</button>
+    </form>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
+      <div class="col d-flex" *ngFor="let bible of searchResults|search:searchTerm">
+        <div class="card">
+          <img src="{{bible.productPhoto}}" class="card-img-top" alt="{{bible.name}}">
+          <div class="card-body">
+            <h5 class="card-title">{{bible.name}}</h5>
+            <p class="card-text">{{bible.description}}</p>
+            <p class="card-text">{{(bible.price/100)|currency}}</p>
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" [attr.data-bs-target]="'#details'+bible.Id">
+              Details
+            </button>
+            <button type="button" class="btn btn-success w-50" data-bs-toggle="modal" [attr.data-bs-target]="'#update'+bible.Id">
+              Update
+            </button>
+            <button type="button" class="btn btn-warning w-50" (click)="onDelete(bible.Id)">
+              Delete
+            </button>
+          </div>
+        </div>
+
+
+        <!-- Update Modal -->
+        <div class="modal fade" id="update{{bible.Id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Create Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form (ngSubmit)="onEdit(bible)" #createForm="ngForm">
+                  <div class="form-group">
+                    <label for="name">Product Name</label>
+                    <input id="name" type="text" class="form-control" aria-describedby="productname" placeholder="Product Name" required [(ngModel)]="bible.name" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label for="version">Product Version</label>
+                    <input id="version" type="text" class="form-control" aria-describedby="version" placeholder="Version" required [(ngModel)]="bible.version" name="version">
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Product Description</label>
+                    <textarea id="description" type="text" class="form-control" aria-describedby="description" placeholder="Description" required [(ngModel)]="bible.description" name="description">
+                    </textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="price">Price (Pennies)</label>
+                    <input id="price" type="number" class="form-control" aria-describedby="price" placeholder="Product Price" required [(ngModel)]="bible.price" name="price">
+                  </div>
+                  <div class="form-group">
+                    <label for="photo">Product Photo</label>
+                    <input id="photo" type="text" class="form-control" aria-describedby="productphoto" placeholder="Product Photo" required [(ngModel)]="bible.productPhoto" name="productphoto">
+                  </div>
+                  <button type="submit" class="btn btn-primary mt-2 w-100" data-bs-dismiss="modal">Submit</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Details Modal -->
+        <div class="modal fade" id="details{{bible.Id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{bible.name}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img src="{{bible.productPhoto}}" class="w-100"/>
+                <div><p>Product Number:<br> {{bible.Id}}</p></div>
+                <div><p>Product Version:<br> {{bible.version}}</p></div>
+                <div><p>Product Description:<br> {{bible.description}}</p></div>
+                <div><p>Date First Carried:<br> {{bible.myDate}}</p></div>
+                <div><p>Price:<br> {{(bible.price/100)|currency}}</p></div>
+                <div><p></p></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Create Product</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onCreate()" #createForm="ngForm">
+          <div class="form-group">
+            <label for="name">Product Name</label>
+            <input id="name" type="text" class="form-control" aria-describedby="productname" placeholder="Product Name" required [(ngModel)]="newBible.name" name="name">
+          </div>
+          <div class="form-group">
+            <label for="version">Product Version</label>
+            <input id="version" type="text" class="form-control" aria-describedby="version" placeholder="Version" required [(ngModel)]="newBible.version" name="version">
+          </div>
+          <div class="form-group">
+            <label for="description">Product Description</label>
+            <textarea id="description" type="text" class="form-control" aria-describedby="description" placeholder="Description" required [(ngModel)]="newBible.description" name="description">
+            </textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="price">Price (Pennies)</label>
+            <input id="price" type="number" class="form-control" aria-describedby="price" placeholder="Product Price" required [(ngModel)]="newBible.price" name="price">
+          </div>
+          <div class="form-group">
+            <label for="photo">Product Photo</label>
+            <input id="photo" type="text" class="form-control" aria-describedby="productphoto" placeholder="Product Photo" required [(ngModel)]="newBible.productPhoto" name="name">
+          </div>
+          <button type="submit" class="btn btn-primary mt-2 w-100" data-bs-dismiss="modal">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

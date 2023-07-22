@@ -1,0 +1,8 @@
+#main {
+  z-index: 1;
+  position: absolute;
+  top:10%;
+  left:20%;
+  width:60%;
+  background-color: bisque;
+}

@@ -1,0 +1,55 @@
+<div class="head mt-4 mb-4">
+  <h1 style="text-align: center;">Shop for Bibles</h1>
+</div>
+<div class="container box-display box-arrive rounded">
+
+  <button type="button" class="btn btn-success float-end" routerLink="/ShoppingCart">
+    Shopping Cart
+  </button>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
+
+    <div class="col d-flex" *ngFor="let bible of searchResults|search:searchTerm">
+      <div class="card">
+        <img src="{{bible.productPhoto}}" class="card-img-top" alt="{{bible.name}}">
+        <div class="card-body">
+          <h5 class="card-title">{{bible.name}}</h5>
+          <p class="card-text">{{bible.description}}</p>
+          <p class="card-text">{{(bible.price/100)|currency}}</p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary w-50" data-bs-toggle="modal" [attr.data-bs-target]="'#details'+bible.Id">
+            Details
+          </button>
+          <button type="button" class="btn btn-success w-50" (click)="addToCart(bible)">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+      <!-- Details Modal -->
+      <div class="modal fade" id="details{{bible.Id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">{{bible.name}}</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img src="{{bible.productPhoto}}" class="w-100"/>
+              <div><p>Product Number:<br> {{bible.Id}}</p></div>
+              <div><p>Product Version:<br> {{bible.version}}</p></div>
+              <div><p>Product Description:<br> {{bible.description}}</p></div>
+              <div><p>Date First Carried:<br> {{bible.myDate}}</p></div>
+              <div><p>Price:<br> {{(bible.price/100)|currency}}</p></div>
+              <div><p></p></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
