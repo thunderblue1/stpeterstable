@@ -14,6 +14,7 @@ import { SearchPipe } from './search.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { BibleService } from './service/bible.service';
 import { UserService } from './service/user.service';
+import { ManageService } from './service/manage.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { UserService } from './service/user.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [BibleService, UserService],
+  providers: [BibleService, UserService, ManageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

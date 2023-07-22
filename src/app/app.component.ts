@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './service/user.service';
+import { ManageService } from './service/manage.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,8 @@ import { UserService } from './service/user.service';
 })
 export class AppComponent implements OnInit {
   title = 'St. Peter\'s Table';
-  managerLoggedIn = false;
   searchTerm:String='';
-  constructor(private router: Router,public userService:UserService) {
+  constructor(private router: Router,public manageService: ManageService) {
   }
   ngOnInit() {
     this.router.navigate(['/about']);

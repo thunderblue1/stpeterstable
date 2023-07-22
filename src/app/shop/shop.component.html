@@ -1,13 +1,14 @@
 <div class="head mt-4 mb-4">
-  <h1 style="text-align: center;">Shop for Bibles</h1>
+  <h1 style="text-align: center;">Manage</h1>
 </div>
-<div class="container box-display box-arrive rounded">
 
-  <button type="button" class="btn btn-success float-end" routerLink="/ShoppingCart">
-    Shopping Cart
-  </button>
+<div class="container box-display rounded mt-3">
+	<button type="button" class="btn btn-success float-end" routerLink="/ShoppingCart">
+		Shopping Cart
+	</button>
 
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
 
     <div class="col d-flex" *ngFor="let bible of searchResults|search:searchTerm">
       <div class="card">
@@ -15,7 +16,6 @@
         <div class="card-body">
           <h5 class="card-title">{{bible.name}}</h5>
           <p class="card-text">{{bible.description}}</p>
-          <p class="card-text">{{(bible.price/100)|currency}}</p>
         </div>
         <div class="card-footer">
           <button type="button" class="btn btn-primary w-50" data-bs-toggle="modal" [attr.data-bs-target]="'#details'+bible.Id">
@@ -50,6 +50,6 @@
           </div>
         </div>
       </div>
+
     </div>
-  </div>
 </div>

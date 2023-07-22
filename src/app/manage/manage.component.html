@@ -92,7 +92,7 @@
                 <div><p>Product Number:<br> {{bible.Id}}</p></div>
                 <div><p>Product Version:<br> {{bible.version}}</p></div>
                 <div><p>Product Description:<br> {{bible.description}}</p></div>
-                <div><p>Date First Carried:<br> {{bible.myDate}}</p></div>
+                <div><p>Date First Carried:<br> {{bible.myDate|date:"MM/dd/YYYY"}}</p></div>
                 <div><p>Price:<br> {{(bible.price/100)|currency}}</p></div>
                 <div><p></p></div>
               </div>

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { UserDTO } from '../models/userDTO.model';
+import { Router } from '@angular/router';
+import { ManageService } from '../service/manage.service';
 
 
 @Component({
@@ -9,7 +11,7 @@ import { UserDTO } from '../models/userDTO.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(public userService:UserService){
+  constructor(private userService:UserService, public manageService:ManageService,private router:Router){
 
   }
   loginUser:String='';
@@ -25,10 +27,11 @@ export class LoginComponent {
         this.gottenUsers = users;
         if(this.gottenUsers.length==1) {
           if(this.gottenUsers[0].relation=="manager") {
-            this.userService.manage = true;
+            this.manageService.manage = true;
           }
         }
       }
     );
+    this.router.navigate(['/shop']);
   }
 }

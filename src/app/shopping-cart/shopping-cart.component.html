@@ -1,10 +1,9 @@
 <div class="head mt-4 mb-4">
   <h1 style="text-align: center;">Shopping Cart</h1>
 </div>
-<div class="container box-display box-arrive rounded">
 
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
-
+<div class="container box-display rounded mt-3">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
     <div class="col d-flex" *ngFor="let bible of cart|search:''">
       <div class="card">
         <img src="{{bible.productPhoto}}" class="card-img-top" alt="{{bible.name}}">
@@ -36,7 +35,7 @@
               <div><p>Product Number:<br> {{bible.Id}}</p></div>
               <div><p>Product Version:<br> {{bible.version}}</p></div>
               <div><p>Product Description:<br> {{bible.description}}</p></div>
-              <div><p>Date First Carried:<br> {{bible.myDate}}</p></div>
+              <div><p>Date First Carried:<br> {{bible.myDate|date:"MM/dd/YYYY"}}</p></div>
               <div><p>Price:<br> {{(bible.price/100)|currency}}</p></div>
               <div><p></p></div>
             </div>
@@ -44,8 +43,6 @@
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
-        </div>
-      </div>
+		  </div>
     </div>
-  </div>
 </div>
